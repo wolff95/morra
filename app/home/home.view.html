@@ -1,1 +1,19 @@
-<p>This is the partial for view 1.</p>
+<div ng-controller="HomeCtrl as hc" class="wrapper">
+    <div ng-if="!hc.inGame">
+    <button ng-click="hc.play()">PLAY</button>
+    <p> Best of 3!</p>
+    </div>
+    <div ng-if="hc.inGame">
+        <button ng-click="hc.stop()">STOP</button>
+        <p>you won</p>
+        <p>you lost</p>
+        <div><!-- Chose your move-->
+            <button ng-click="hc.playerMove('scissor')">scissor</button>
+            <button ng-click="hc.playerMove('rock')">rock</button>
+            <button ng-click="hc.playerMove('paper')">paper</button>
+        </div>
+        <div>
+            <h1>{{hc.winner}}</h1>
+        </div>
+    </div>
+</div>

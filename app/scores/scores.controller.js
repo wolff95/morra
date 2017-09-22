@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('myApp.score')
+angular.module('myApp.score', [])
 
-.controller('ScoresCtrl', [function() {
+.controller('ScoreCtrl', [function() {
 
 }]);

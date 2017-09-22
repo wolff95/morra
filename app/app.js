@@ -4,7 +4,7 @@
 angular.module('myApp', [
   'ngRoute',
   'myApp.home',
-  'myApp.scores',
+  'myApp.score',
   'myApp.version'
 ])
 .config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
