@@ -1,4 +1,9 @@
 <div ng-controller="HomeCtrl as hc" class="wrapper">
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <h1><span class="green">{{hc.playerScore || 0}}</span> VS <span class="red">{{hc.computerScore || 0}}</span></h1>
+        </div>
+    </div>
     <div ng-if="!hc.inGame" class="row">
         <div class="col-xs-12">
             <button class="btn btn-success btn-lg btn-block" ng-click="hc.play()">PLAY</button>
@@ -24,6 +29,7 @@
                 </div>
                 <div class="col-xs-4 text-center" style="font-size: 150px">
                     <h1>VS</h1>
+                    <h2>{{hc.winner.text}}</h2>
                 </div>
                 <div ng-if="hc.computerChoice" class="col-xs-4">
                     <choice choice="hc.computerChoice" user="false"></choice>
@@ -33,11 +39,6 @@
                         <h1 style="margin-top:70px">{{hc.counter}}</h1>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div ng-if="hc.winner" class="row">
-            <div class="col-xs-12 text-center">
-                <h2>{{hc.winner}}</h2>
             </div>
         </div>
         <div ng-if="hc.winner" class="row">

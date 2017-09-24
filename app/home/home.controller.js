@@ -5,15 +5,10 @@ angular.module('myApp.home', [])
     .controller('HomeCtrl', ['history', '$timeout', function (history, $timeout, $scope) {
         var vm = this;
         vm.counter = 4;
-        vm.choices = ["rock", "paper", "scissors"];
+        vm.playerScore = vm.computerScore = 0;
+        vm.results = [{id : 0, text : 'You win!'}, { id : 1, name : 'You lose!'}, { id : 2, text : 'Draw!'}];
+        vm.choices = [{id : 0, name : 'rock'}, { id : 1, name : 'paper'}, {id : 2, name : 'scissors'}];
         vm.map = {};
-        
-        vm.choices.forEach(function(choice, i) {
-            vm.map[choice] = {};
-            vm.map[choice][choice] = "Was a tie"
-            vm.map[choice][vm.choices[(i+1)%3]] = vm.choices[(i+1)%3] + " wins"
-            vm.map[choice][vm.choices[(i+2)%3]] = choice + " wins"
-        })
 
         vm.play = function () {
             vm.inGame = true;
@@ -31,36 +26,42 @@ angular.module('myApp.home', [])
             vm.computerMove()
         }
 
-        vm.result = function (choice1, choice2) {
-            //Qualcosa del genere.
-            if (choice1 === choice2) {
-                return "It's a tie!";
+        vm.result = function (playerChoice, computerChoice) {
+            //TODO : Clean this mess!
+            if (playerChoice === computerChoice) {
+                return vm.results[2];
             }
-            if (choice1 === "rock") {
-                if (choice2 === "scissors") {
+            if (playerChoice === vm.choices[0]) {
+                if (computerChoice === vm.choices[2]) {
                     // rock wins
-                    return "You win!";
+                    vm.playerScore++;
+                    return vm.results[0];
                 } else {
                     // paper wins
-                    return "You lose! Try again.";
+                    vm.computerScore++;
+                    return vm.results[1];
                 }
             }
-            if (choice1 === "paper") {
-                if (choice2 === "rock") {
+            if (playerChoice === vm.choices[1]) {
+                if (computerChoice === vm.choices[0]) {
                     // paper wins
-                    return "You win!";
+                    vm.playerScore++;
+                    return vm.results[0];
                 } else {
                     // scissors wins
-                    return "You lose! Try again.";
+                    vm.computerScore++;
+                    return vm.results[1];
                 }
             }
-            if (choice1 === "scissors") {
-                if (choice2 === "rock") {
+            if (playerChoice === vm.choices[2]) {
+                if (computerChoice === vm.choices[0]) {
                     // rock wins
-                    return "You lose! Try again.";
+                    vm.computerScore++;
+                    return vm.results[1];
                 } else {
                     // scissors wins
-                    return "You win!";
+                    vm.playerScore++;
+                    return vm.results[0];
                 }
             }
         }
@@ -79,7 +80,7 @@ angular.module('myApp.home', [])
         }
         
         vm.saveMatch = function(){
-            var match = { player: vm.playerChoice, computer: vm.computerChoice, result: vm.winner}
+            var match = { player: vm.playerChoice, computer: vm.computerChoice, result: vm.winner }
             history.add(match);
         }
 

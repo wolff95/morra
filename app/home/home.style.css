@@ -34,3 +34,15 @@ h1 {
     margin : 100px 400px;
     background-color: #F1F1F1
 }
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
+
+.padding {
+    padding: 15px;
+}

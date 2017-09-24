@@ -1,25 +1,10 @@
 
 <div ng-controller="ScoreCtrl as sc" class="wrapper">
-    <button ng-click="hc.getList()">REFRESH</button>
-    <pre>{{sc.lisHistory}}</pre>
-    <div ng-repeat="history in sc.lisHistory">
-    <div class="col-xs-12" style="margin-bottom : 20px">
-        <div class="row">
-            <div class="col-xs-4">
-                <choice choice="history.player" user="true"></choice>
-            </div>
-            <div class="col-xs-4 text-center" style="font-size: 150px">
-                <h1>VS</h1>
-            </div>
-            <div class="col-xs-4">
-                <choice choice="history.computer" user="false"></choice>
-            </div>
-        </div>
-    </div>
     <div class="row">
-        <div class="col-xs-12 text-center">
-            <h2>{{history.result}}</h2>
-        </div>
+        <!-- TODO: Some filter -->
     </div>
-  </div>
+    <history-list model="sc.lisHistory"></history-list>
+    <div ng-if="sc.lisHistory.length == 0" class="text-center">
+      <h2 class="padding">You didn't played any match yet</h2>
+    </div>
 </div>

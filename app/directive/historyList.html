@@ -1,0 +1,16 @@
+<div ng-repeat="history in model">
+        <div class="col-xs-12" style="margin-bottom : 20px">
+          <div class="row">
+            <div class="col-xs-4">
+              <choice choice="history.player" user="true"></choice>
+            </div>
+            <div class="col-xs-4 text-center" style="font-size: 150px">
+              <h1>VS</h1>
+              <h2>{{history.result.text}}</h2>
+            </div>
+            <div class="col-xs-4">
+              <choice choice="history.computer" user="false"></choice>
+            </div>
+          </div>
+        </div>
+      </div>
