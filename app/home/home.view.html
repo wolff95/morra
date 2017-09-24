@@ -1,19 +1,45 @@
 <div ng-controller="HomeCtrl as hc" class="wrapper">
-    <div ng-if="!hc.inGame">
-    <button ng-click="hc.play()">PLAY</button>
-    <p> Best of 3!</p>
-    </div>
-    <div ng-if="hc.inGame">
-        <button ng-click="hc.stop()">STOP</button>
-        <p>you won</p>
-        <p>you lost</p>
-        <div><!-- Chose your move-->
-            <button ng-click="hc.playerMove('scissor')">scissor</button>
-            <button ng-click="hc.playerMove('rock')">rock</button>
-            <button ng-click="hc.playerMove('paper')">paper</button>
+    <!-- PLAY -->
+    <div ng-if="!hc.inGame" class="row">
+        <div class="col-xs-12">
+            <button class="btn btn-success btn-lg btn-block" ng-click="hc.play()">PLAY</button>
         </div>
-        <div>
-            <h1>{{hc.winner}}</h1>
+    </div>
+    <div ng-if="hc.inGame" class="row">
+        <div class="col-xs-12">
+            <div class="row" style="margin-bottom : 20px">
+                <div class="col-xs-12">
+                    <button class="btn btn-danger btn-lg btn-block" ng-click="hc.stop()">STOP</button>
+                </div>
+            </div>
+            <div ng-if="!hc.playerChoice" class="row" style="margin-bottom : 20px">
+                <div ng-repeat="choice in hc.choices" class="col-xs-4">
+                    <choice ng-click="hc.playerMove(choice)" choice="choice" user="true"></choice>
+                </div>
+            </div>
+        </div>
+        <div ng-if="hc.playerChoice" class="col-xs-12">
+            <div class="row">
+                <div class="col-xs-4">
+                    <choice choice="hc.playerChoice" user="true"></choice>
+                </div>
+                <div class="col-xs-4 text-center" style="font-size: 150px">
+                    <h1>VS</h1>
+                </div>
+                <div class="col-xs-4">
+                    <choice choice="hc.computerChoice" user="false"></choice>
+                </div>
+            </div>
+        </div>
+        <div ng-if="hc.winner" class="row">
+            <div class="col-xs-12 text-center">
+                <h2>{{hc.winner}}</h2>
+            </div>
+        </div>
+        <div ng-if="hc.winner" class="row">
+            <div class="col-xs-12">
+                <button class="btn btn-success btn-lg btn-block" ng-click="hc.playerChoice = null; hc.winner = null;">PLAY AGAIN</button>
+            </div>
         </div>
     </div>
 </div>

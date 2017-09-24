@@ -2,39 +2,17 @@
 
 angular.module('myApp.home', [])
 
-    .controller('HomeCtrl', [function ($scope) {
+    .controller('HomeCtrl', ['choosing', function (choosing, $scope) {
         var vm = this;
-
-   /*     vm.object = [{ 
-            name: 'scissor',
-             value: 0,
-             winAgainst : [
-                vm.object[1].value
-             ],
-             loseAgainst : [
-                vm.object[2].value
-             ],
-        },
-        { 
-            name: 'paper',
-             value: 1,
-             winAgainst : [
-                vm.object[2].value
-             ],
-             loseAgainst : [
-                vm.object[0].value
-             ]
-        },
-        { 
-            name: 'rock',
-             value: 2,
-             winAgainst : [
-                vm.object[0].value
-             ],
-             loseAgainst : [
-                vm.object[1].value
-             ]
-        }];*/
+        vm.choices = ["rock", "paper", "scissors"];
+        vm.map = {};
+        
+        vm.choices.forEach(function(choice, i) {
+            vm.map[choice] = {};
+            vm.map[choice][choice] = "Was a tie"
+            vm.map[choice][vm.choices[(i+1)%3]] = vm.choices[(i+1)%3] + " wins"
+            vm.map[choice][vm.choices[(i+2)%3]] = choice + " wins"
+        })
 
         vm.play = function () {
             vm.inGame = true;
@@ -49,34 +27,77 @@ angular.module('myApp.home', [])
             vm.computerMove()
         }
 
-        
         vm.result = function (choice1, choice2) {
             //Qualcosa del genere.
-            if (choice1 === "paper") {
-                if (choice2 === "rock") {
-                    vm.winner = "paper wins";
+            if (choice1 === choice2) {
+                return "It's a tie!";
+            }
+            if (choice1 === "rock") {
+                if (choice2 === "scissors") {
+                    // rock wins
+                    return "You win!";
                 } else {
-                    if (choice2 === "scissor") {
-                        vm.winner = "scissors wins";
-                    }
-                }
-                if (choice1 === "scissor") {
-                    if (choice2 === "rock") {
-                        vm.winner = "rock wins";
-                    } else {
-                        if (choice2 === "paper") {
-                            vm.winner = "scissors wins";
-                        }
-                    }
+                    // paper wins
+                    return "You lose! Try again.";
                 }
             }
+            if (choice1 === "paper") {
+                if (choice2 === "rock") {
+                    // paper wins
+                    return "You win!";
+                } else {
+                    // scissors wins
+                    return "You lose! Try again.";
+                }
+            }
+            if (choice1 === "scissors") {
+                if (choice2 === "rock") {
+                    // rock wins
+                    return "You lose! Try again.";
+                } else {
+                    // scissors wins
+                    return "You win!";
+                }
+            }
+
         }
 
         vm.computerMove = function () {
             //Random pick a number from 0 to 2
-            vm.myArray = ["paper", "rock", "rock"];
-            vm.computerChoice = vm.myArray[Math.floor(Math.random() * vm.myArray.length)];
-            vm.result(vm.playerChoice, vm.computerChoice);
+            vm.computerChoice = vm.choices[Math.floor(Math.random() * vm.choices.length)];
+            vm.winner = vm.result(vm.playerChoice, vm.computerChoice);
         }
 
-    }]);
+    }])
+    .directive('choice', function() {
+        return {
+            restrict: 'E',
+            scope : {
+                choice : '=',
+                user : '='
+            },
+            templateUrl: 'directive/choice.html',
+            link: function(scope){
+                console.log(scope.choice);
+            }
+        }
+    })
+    .service('choosing', function() {
+        var choosing = {
+            player : player,
+            computer : computer
+          }
+        
+          return choosing;
+        
+          function player(){
+            vm.playerChoice = choice;
+            vm.computerMove()
+            return "hokla";
+          }
+
+          function computer(){
+            return "hokla";
+          }
+        
+    })

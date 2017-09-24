@@ -1,0 +1,27 @@
+h1 {
+    font-size: 150px;
+}
+
+.choice {
+    width: 300px;
+    height: 300px;
+    color: white;
+    border-radius: 25%;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 15em;
+    margin: auto;
+}
+
+.player {
+    background-color: green;
+}
+
+.computer {
+    background-color: red;
+}
+
+.wrapper {
+    margin : 100px 400px;
+    background-color: #F1F1F1
+}
