@@ -16,7 +16,7 @@ angular.module('myApp', [
 
       $routeProvider.when('/scores', {
         templateUrl: 'scores/scores.view.html',
-        controller: 'ScoresCtrl'
+        controller: 'ScoreCtrl'
       })
 
       $routeProvider.otherwise({ redirectTo: '/home' });

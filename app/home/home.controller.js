@@ -2,8 +2,9 @@
 
 angular.module('myApp.home', [])
 
-    .controller('HomeCtrl', ['choosing', function (choosing, $scope) {
+    .controller('HomeCtrl', ['history', '$timeout', function (history, $timeout, $scope) {
         var vm = this;
+        vm.counter = 4;
         vm.choices = ["rock", "paper", "scissors"];
         vm.map = {};
         
@@ -20,6 +21,9 @@ angular.module('myApp.home', [])
 
         vm.stop = function () {
             vm.inGame = false;
+            vm.playerChoice = null;
+            vm.computerChoice = null;
+            vm.winner = null;
         }
 
         vm.playerMove = function (choice) {
@@ -59,13 +63,28 @@ angular.module('myApp.home', [])
                     return "You win!";
                 }
             }
-
+        }
+     
+        vm.computerMove = function(){
+            if(vm.counter == 1){
+                vm.computerChoice = vm.choices[Math.floor(Math.random() * vm.choices.length)];
+                vm.winner = vm.result(vm.playerChoice, vm.computerChoice);
+                vm.saveMatch();
+                vm.counter = 4;
+            }
+            else {
+                vm.counter--;
+                $timeout(vm.computerMove,1000);
+            }
+        }
+        
+        vm.saveMatch = function(){
+            var match = { player: vm.playerChoice, computer: vm.computerChoice, result: vm.winner}
+            history.add(match);
         }
 
-        vm.computerMove = function () {
-            //Random pick a number from 0 to 2
-            vm.computerChoice = vm.choices[Math.floor(Math.random() * vm.choices.length)];
-            vm.winner = vm.result(vm.playerChoice, vm.computerChoice);
+        vm.getList = function(){
+            vm.lisHistory = history.get();
         }
 
     }])
@@ -76,28 +95,24 @@ angular.module('myApp.home', [])
                 choice : '=',
                 user : '='
             },
-            templateUrl: 'directive/choice.html',
-            link: function(scope){
-                console.log(scope.choice);
-            }
+            templateUrl: 'directive/choice.html'
         }
     })
-    .service('choosing', function() {
-        var choosing = {
-            player : player,
-            computer : computer
+    .service('history', function() {
+        var history = {
+            list : [],
+            add : add,
+            get : get
           }
         
-          return choosing;
+          return history;
         
-          function player(){
-            vm.playerChoice = choice;
-            vm.computerMove()
-            return "hokla";
+          function add(match){
+            history.list.push(match);
           }
 
-          function computer(){
-            return "hokla";
+          function get(){
+            return history.list;
           }
         
     })

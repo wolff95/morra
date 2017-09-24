@@ -1,5 +1,25 @@
-<p>This is the partial for view 2.</p>
-<p>
-  Showing of 'interpolate' filter:
-  {{ 'Current version is v%VERSION%.' | interpolate }}
-</p>
+
+<div ng-controller="ScoreCtrl as sc" class="wrapper">
+    <button ng-click="hc.getList()">REFRESH</button>
+    <pre>{{sc.lisHistory}}</pre>
+    <div ng-repeat="history in sc.lisHistory">
+    <div class="col-xs-12" style="margin-bottom : 20px">
+        <div class="row">
+            <div class="col-xs-4">
+                <choice choice="history.player" user="true"></choice>
+            </div>
+            <div class="col-xs-4 text-center" style="font-size: 150px">
+                <h1>VS</h1>
+            </div>
+            <div class="col-xs-4">
+                <choice choice="history.computer" user="false"></choice>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <h2>{{history.result}}</h2>
+        </div>
+    </div>
+  </div>
+</div>

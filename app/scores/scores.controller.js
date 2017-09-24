@@ -2,6 +2,9 @@
 
 angular.module('myApp.score', [])
 
-.controller('ScoreCtrl', [function() {
+.controller('ScoreCtrl', ['history', function(history, $scope) {
+    var vm = this;
+
+    vm.lisHistory = history.get();
 
 }]);

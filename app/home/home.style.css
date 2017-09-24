@@ -2,6 +2,15 @@ h1 {
     font-size: 150px;
 }
 
+.navbar .navbar-nav {
+    display: inline-block;
+    float: none;
+}
+
+.navbar .navbar-collapse {
+    text-align: center;
+}
+
 .choice {
     width: 300px;
     height: 300px;

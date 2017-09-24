@@ -1,5 +1,4 @@
 <div ng-controller="HomeCtrl as hc" class="wrapper">
-    <!-- PLAY -->
     <div ng-if="!hc.inGame" class="row">
         <div class="col-xs-12">
             <button class="btn btn-success btn-lg btn-block" ng-click="hc.play()">PLAY</button>
@@ -18,7 +17,7 @@
                 </div>
             </div>
         </div>
-        <div ng-if="hc.playerChoice" class="col-xs-12">
+        <div ng-if="hc.playerChoice" class="col-xs-12" style="margin-bottom : 20px">
             <div class="row">
                 <div class="col-xs-4">
                     <choice choice="hc.playerChoice" user="true"></choice>
@@ -26,8 +25,13 @@
                 <div class="col-xs-4 text-center" style="font-size: 150px">
                     <h1>VS</h1>
                 </div>
-                <div class="col-xs-4">
+                <div ng-if="hc.computerChoice" class="col-xs-4">
                     <choice choice="hc.computerChoice" user="false"></choice>
+                </div>
+                <div ng-if="!hc.computerChoice" class="col-xs-4">
+                    <div class="computer choice">
+                        <h1 style="margin-top:70px">{{hc.counter}}</h1>
+                    </div>
                 </div>
             </div>
         </div>
@@ -38,7 +42,7 @@
         </div>
         <div ng-if="hc.winner" class="row">
             <div class="col-xs-12">
-                <button class="btn btn-success btn-lg btn-block" ng-click="hc.playerChoice = null; hc.winner = null;">PLAY AGAIN</button>
+                <button class="btn btn-success btn-lg btn-block" ng-click="hc.playerChoice = null; hc.computerChoice = null; hc.winner = null;">PLAY AGAIN</button>
             </div>
         </div>
     </div>
