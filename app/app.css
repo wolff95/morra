@@ -1,25 +1,118 @@
-/* app css stylesheet */
-
-.menu {
-  list-style: none;
-  border-bottom: 0.1em solid black;
-  margin-bottom: 2em;
-  padding: 0 0 0.5em;
+/*typography*/
+h1 {
+  font-size: 150px;
 }
 
-.menu:before {
-  content: "[";
+.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
 }
 
-.menu:after {
-  content: "]";
+.navbar .navbar-collapse {
+  text-align: center;
 }
 
-.menu > li {
-  display: inline;
+/*Layout helper*/
+.wrapper {
+  margin : 0 400px;
+  background-color: #F1F1F1
 }
 
-.menu > li + li:before {
-  content: "|";
-  padding-right: 0.3em;
+.no-margin {
+  margin: 0;
+}
+
+.padding {
+  padding: 15px;
+}
+
+.no-padding-left {
+  padding-left: 0;
+}
+
+.no-padding-right {
+  padding-right : 0;
+}
+
+/* choice in the match */
+.choice {
+  width: 300px;
+  height: 300px;
+  color: white;
+  border-radius: 25%;
+  border: 1px solid black;
+  text-align: center;
+  font-size: 15em;
+  margin: auto;
+}
+
+/* choice in the history list */
+choice.history-list-item > .choice {
+  width: 50px;
+  height: 50px;
+  color: white;
+  border-radius: 25%;
+  border: 1px solid black;
+  text-align: center;
+  font-size: 2.5em;
+  margin: auto;
+}
+
+/*list backgrounds*/
+.won {
+  background-color: rgba(0, 128, 0, 0.50);
+}
+
+.lost {
+  background-color: rgba(255, 0, 0, 0.50);
+}
+
+.drew {
+  background-color: rgba(255, 255, 0, 0.50);
+}
+
+.player {
+  background-color: green;
+}
+
+.computer {
+  background-color: red;
+}
+
+/*colors classes*/
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
+
+/* Quick mobile version*/
+@media (max-width: 978px) {
+
+  .wrapper {
+    margin:0 15px;
+  }
+
+  h1 {
+      font-size: 70px;
+      margin: 0;
+  }
+
+  h2 {
+      font-size: 22px;
+  }
+
+  .choice {
+    width: 90px;
+    height: 90px;
+    color: white;
+    border-radius: 25%;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 4em;
+    margin: auto;
+    }
+
 }

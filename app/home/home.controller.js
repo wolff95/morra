@@ -2,12 +2,11 @@
 
 angular.module('myApp.home', [])
 
-    .controller('HomeCtrl', ['history', '$timeout', function (history, $timeout, $scope) {
+    .controller('HomeCtrl', ['Choices', 'Results', 'history', 'score', '$timeout', function (Choices, Results, history, score, $timeout, $scope) {
         var vm = this;
         vm.counter = 4;
-        vm.playerScore = vm.computerScore = 0;
-        vm.results = [{id : 0, text : 'You win!'}, { id : 1, name : 'You lose!'}, { id : 2, text : 'Draw!'}];
-        vm.choices = [{id : 0, name : 'rock'}, { id : 1, name : 'paper'}, {id : 2, name : 'scissors'}];
+        vm.choices = Choices;
+        vm.results = Results;
         vm.map = {};
 
         vm.play = function () {
@@ -29,38 +28,39 @@ angular.module('myApp.home', [])
         vm.result = function (playerChoice, computerChoice) {
             //TODO : Clean this mess!
             if (playerChoice === computerChoice) {
+                score.winner(vm.results[2])
                 return vm.results[2];
             }
             if (playerChoice === vm.choices[0]) {
                 if (computerChoice === vm.choices[2]) {
                     // rock wins
-                    vm.playerScore++;
+                    score.winner(vm.results[0])
                     return vm.results[0];
                 } else {
                     // paper wins
-                    vm.computerScore++;
+                    score.winner(vm.results[1])
                     return vm.results[1];
                 }
             }
             if (playerChoice === vm.choices[1]) {
                 if (computerChoice === vm.choices[0]) {
                     // paper wins
-                    vm.playerScore++;
+                    score.winner(vm.results[0])
                     return vm.results[0];
                 } else {
                     // scissors wins
-                    vm.computerScore++;
+                    score.winner(vm.results[1])
                     return vm.results[1];
                 }
             }
             if (playerChoice === vm.choices[2]) {
                 if (computerChoice === vm.choices[0]) {
                     // rock wins
-                    vm.computerScore++;
+                    score.winner(vm.results[1])
                     return vm.results[1];
                 } else {
                     // scissors wins
-                    vm.playerScore++;
+                    score.winner(vm.results[0])
                     return vm.results[0];
                 }
             }
@@ -98,22 +98,4 @@ angular.module('myApp.home', [])
             },
             templateUrl: 'directive/choice.html'
         }
-    })
-    .service('history', function() {
-        var history = {
-            list : [],
-            add : add,
-            get : get
-          }
-        
-          return history;
-        
-          function add(match){
-            history.list.push(match);
-          }
-
-          function get(){
-            return history.list;
-          }
-        
     })

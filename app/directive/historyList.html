@@ -1,16 +1,20 @@
-<div ng-repeat="history in model">
-        <div class="col-xs-12" style="margin-bottom : 20px">
-          <div class="row">
-            <div class="col-xs-4">
-              <choice choice="history.player" user="true"></choice>
-            </div>
-            <div class="col-xs-4 text-center" style="font-size: 150px">
-              <h1>VS</h1>
-              <h2>{{history.result.text}}</h2>
-            </div>
-            <div class="col-xs-4">
-              <choice choice="history.computer" user="false"></choice>
-            </div>
-          </div>
-        </div>
+<ul class="list-group">
+  <li class="list-group-item" ng-class="{'won' : history.result.id == 0, 'lost' : history.result.id == 1, 'drew' : history.result.id == 2}" ng-repeat="history in model | historyFilter:filter">
+    <div class="row">
+      <div class="col-xs-3 col-sm-5">
+          <choice class="history-list-item" choice="history.player" user="true"></choice>
       </div>
+      <div class="col-xs-6 col-sm-2 text-center">
+        VS
+        <br/>
+        <h3 class="no-margin">{{history.result.text}}</h3>
+      </div>
+      <div class="col-xs-3 col-sm-5">
+          <choice class="history-list-item" choice="history.computer" user="false"></choice>
+      </div>
+    </div>
+  </li>
+  <li ng-if="(model | historyFilter:filter).length == 0" class="list-group-item text-center">
+    No result
+  </li>
+</ul>

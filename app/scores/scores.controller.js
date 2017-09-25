@@ -2,11 +2,11 @@
 
 angular.module('myApp.score', [])
 
-    .controller('ScoreCtrl', ['history', function (history, $scope) {
+    .controller('ScoreCtrl', ['Choices', 'Results', 'history', function (Choices, Results, history, $scope) {
         var vm = this;
-        vm.results = [{id : 0, text : 'You win!'}, { id : 1, text : 'You lose!'}, { id : 2, text : 'Draw!'}];
-        vm.choices = [{id : 0, name : 'rock'}, { id : 1, name : 'paper'}, {id : 2, name : 'scissors'}];
-        vm.query = { choice : -1, result : -1}
+        vm.choices = Choices;
+        vm.results = Results;
+        vm.filter = {};
         vm.lisHistory = history.get();
 
     }])
@@ -14,8 +14,38 @@ angular.module('myApp.score', [])
         return {
             restrict: 'E',
             scope : {
-                model : '='
+                model : '=',
+                filter : '='
             },
             templateUrl: 'directive/historyList.html'
         }
-    });
+    })
+    .service('history', function() {
+        var history = {
+            list : [],
+            add : add,
+            get : get
+          }
+        
+          return history;
+        
+          function add(match){
+            history.list.push(match);
+          }
+
+          function get(){
+            return history.list;
+          }
+        
+    })
+    .filter('historyFilter', function () {
+        return function (matches, filter) {
+            matches = _.filter(matches, function(match){
+                return (!filter.choiceId && filter.choiceId != 0) || match.player.id == filter.choiceId || match.computer.id == filter.choiceId;
+            })
+            matches = _.filter(matches, function(match){
+                return (!filter.matchResultId && filter.matchResultId != 0) || match.result.id == filter.matchResultId;
+            })
+            return matches;
+        }
+    })

@@ -1,10 +1,17 @@
-
 <div ng-controller="ScoreCtrl as sc" class="wrapper">
-    <div class="row">
-        <!-- TODO: Some filter -->
+    <div class="row padding">
+        <div class="col-xs-6 col-md-4">
+            <label>Choice : </label>
+            <select class="form-control" ng-model="sc.filter.choiceId" ng-options="choice.id as choice.name for choice in sc.choices">
+                <option value="">Select...</option>
+            </select>
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <label>Match result : </label>
+            <select class="form-control" ng-model="sc.filter.matchResultId" ng-options="result.id as result.text for result in sc.results">
+                <option value="">Select...</option>
+            </select>
+        </div>
     </div>
-    <history-list model="sc.lisHistory"></history-list>
-    <div ng-if="sc.lisHistory.length == 0" class="text-center">
-      <h2 class="padding">You didn't played any match yet</h2>
-    </div>
+    <history-list model="sc.lisHistory" filter="sc.filter"></history-list>
 </div>
