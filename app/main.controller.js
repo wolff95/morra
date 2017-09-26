@@ -2,9 +2,8 @@
 
 angular.module('myApp.main', [])
 
-    .controller('MainCtrl', ['score', '$rootScope', '$routeProvider', function (score, $rootScope, $routeProvider, $scope) {
+    .controller('MainCtrl', ['score', '$rootScope', function (score, $rootScope, $scope) {
         var vm = this;
-        vm.activeTab = $routeProvider.url();
 
         $rootScope.$on('scoreChanged', function (change) { 
             vm.playerScore = score.player;
